@@ -1,8 +1,8 @@
 /* YSÇ ERP — service worker
  * Her güncellemede SURUM artırılır; eski önbellek silinir. */
-var SURUM = 'yscerp-v1';
+var SURUM = 'yscerp-v2';
 var KABUK = ['./', './index.html', './manifest.webmanifest',
-  './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png'];
+  './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 
 self.addEventListener('install', function (e) {
   e.waitUntil(caches.open(SURUM).then(function (c) { return c.addAll(KABUK); }).then(function () { return self.skipWaiting(); }));
