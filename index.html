@@ -167,7 +167,7 @@
     </div>
     <div id="icerik">
       <div id="karsilama">
-        <h2>Hoş geldin</h2>
+        <h2 id="hosgeldin">Hoş geldin</h2>
         <p>Açmak istediğin uygulamayı seç.</p>
         <div class="kartlar" id="kartlar"></div>
       </div>
@@ -247,7 +247,7 @@
       pin = ''; noktaCiz();
       if (!c.ok) { $('pinMesaj').textContent = c.hata || 'Giriş yapılamadı.'; return; }
       durum.token = c.t; yaz(c.t);
-      basla(c.uygulamalar || []);
+      basla(c.uygulamalar || [], c.kullanici);
     }).catch(function (e) {
       $('pinMesaj').textContent = 'Bağlantı kurulamadı. ' + e.message;
     }).then(function () { $('pinKutu').classList.remove('mesgul'); });
@@ -261,8 +261,11 @@
   }
 
   /* ── Başlat ── */
-  function basla(liste) {
+  function basla(liste, kullanici) {
     durum.uygulamalar = liste;
+    var ad = (kullanici && kullanici.ad) || '';
+    $('hosgeldin').textContent = ad ? 'Hoş geldin, ' + ad : 'Hoş geldin';
+    $('cikis').textContent = ad ? 'Çıkış (' + ad + ')' : 'Çıkış';
     $('pinEkran').classList.add('gizli');
     $('uygulama').classList.remove('gizli');
     menuCiz(); kartCiz(); sekmeCiz();
@@ -271,12 +274,13 @@
   function listeYukle() {
     return api({ islem: 'liste', t: durum.token }).then(function (c) {
       if (!c.ok) { cikis(c.hata); return; }
-      basla(c.uygulamalar || []);
+      basla(c.uygulamalar || [], c.kullanici);
     });
   }
 
   function cikis(mesaj) {
-    yaz(''); durum.token = ''; durum.sekmeler = []; durum.etkin = null;
+    yaz(''); durum.token = ''; durum.sekmeler = []; durum.etkin = null; durum.uygulamalar = [];
+    $('karsilama').classList.remove('gizli'); document.title = UYGULAMA_ADI;
     Array.prototype.slice.call(document.querySelectorAll('#icerik iframe')).forEach(function (f) { f.remove(); });
     pinGoster(mesaj);
   }

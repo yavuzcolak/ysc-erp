@@ -1,6 +1,6 @@
 /* YSÇ ERP — service worker
  * Her güncellemede SURUM artırılır; eski önbellek silinir. */
-var SURUM = 'yscerp-v2';
+var SURUM = 'yscerp-v3';
 var KABUK = ['./', './index.html', './manifest.webmanifest',
   './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 
