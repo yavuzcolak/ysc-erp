@@ -1,6 +1,6 @@
-/* YSÇ ERP — service worker
+/* Çolak Hane — service worker
  * Her güncellemede SURUM artırılır; eski önbellek silinir. */
-var SURUM = 'yscerp-v3';
+var SURUM = 'colakhane-v1';
 var KABUK = ['./', './index.html', './manifest.webmanifest',
   './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 
